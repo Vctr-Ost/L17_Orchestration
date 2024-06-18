@@ -25,11 +25,13 @@ dag = DAG(
 
 # Python functions to be used in the tasks
 def loader_GCS_to_GBQ():
-    resp = requests.get('http://host.docker.internal:8081/gcs-to-gbq/customers/True')
+    uri = 'http://host.docker.internal:8081/gcs-to-gbq/customers/True'
+    resp = requests.get(uri)
     print(resp.status_code)
 
 def bronze_to_silver():
-    resp = requests.get('http://host.docker.internal:8082/customers')
+    uri = 'http://host.docker.internal:8082/customers'
+    resp = requests.get(uri)
     print(resp.status_code)
 
 # Define the tasks

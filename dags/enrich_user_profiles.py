@@ -22,12 +22,14 @@ dag = DAG(
 
 # Python functions to be used in the tasks
 def customers_enricher():
-    resp = requests.get('http://host.docker.internal:8082/customers_enrich')
+    uri = 'http://host.docker.internal:8082/customers_enrich'
+    resp = requests.get(uri)
     print(resp.status_code)
 
 
 def gold_layer_transporter():
-    resp = requests.get('http://host.docker.internal:8083/enrich_user_profiles')
+    uri = 'http://host.docker.internal:8083/enrich_user_profiles'
+    resp = requests.get(uri)
     print(resp.status_code)
 
 

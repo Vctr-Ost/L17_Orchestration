@@ -22,7 +22,8 @@ dag = DAG(
 
 # Python functions to be used in the tasks
 def loader_GCS_to_GBQ():
-    resp = requests.get('http://host.docker.internal:8081/gcs-to-gbq/user_profiles/false')
+    uri = 'http://host.docker.internal:8081/gcs-to-gbq/user_profiles/false'
+    resp = requests.get(uri)
     print(resp.status_code)
 
 # Define the tasks
