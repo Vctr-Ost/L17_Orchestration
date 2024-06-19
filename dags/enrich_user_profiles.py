@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 import requests
+from airflow.models import Variables
+
 
 # Default arguments for the DAG
 default_args = {
@@ -22,14 +24,14 @@ dag = DAG(
 
 # Python functions to be used in the tasks
 def customers_enricher():
-    uri = 'http://host.docker.internal:8082/customers_enrich'
-    resp = requests.get(uri)
+    uri_base = Variables.get('localhost_bronze2silver')
+    resp = requests.get(uri_base + 'customers_enrich')
     print(resp.status_code)
 
 
 def gold_layer_transporter():
-    uri = 'http://host.docker.internal:8083/enrich_user_profiles'
-    resp = requests.get(uri)
+    uri_base = Variables.get('localhost_silver2gold')
+    resp = requests.get(uri_base + 'enrich_user_profiles')
     print(resp.status_code)
 
 
